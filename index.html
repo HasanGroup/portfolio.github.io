@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasan Group | Enterprise Ecosystem</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- 1. SETTINGS --- */
+        :root {
+            --bg: #0b0c10; /* Глубокий черный/синий */
+            --surface: #15161c;
+            --surface-hover: #1e1f26;
+            --primary: #4cc9f0; /* Неоновый голубой */
+            --accent: #4361ee; /* Глубокий синий */
+            --text: #ffffff;
+            --text-gray: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3, h4 { font-weight: 800; color: white; line-height: 1.2; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        /* --- 2. HEADER --- */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+        .navbar { height: 80px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--primary); }
+        
+        .nav-menu { display: flex; gap: 30px; }
+        .nav-link { font-size: 14px; font-weight: 600; color: var(--text-gray); text-transform: uppercase; }
+        .nav-link:hover { color: var(--primary); }
+
+        .btn {
+            padding: 12px 30px; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer; border: none;
+            display: inline-flex; align-items: center; gap: 10px; transition: 0.3s;
+        }
+        .btn-primary { background: var(--primary); color: #000; }
+        .btn-primary:hover { background: white; box-shadow: 0 0 20px rgba(76, 201, 240, 0.4); }
+        .btn-outline { border: 1px solid var(--border); background: transparent; color: white; }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* --- 3. HERO (FULL SCREEN) --- */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; position: relative;
+            background: radial-gradient(circle at top right, rgba(67, 97, 238, 0.15), transparent 40%); 
+            padding-top: 120px;
+        }
+        .hero-content h1 { font-size: 64px; margin-bottom: 25px; }
+        .hero-content h1 span { color: var(--primary); }
+        .hero-content p { font-size: 20px; color: var(--text-gray); margin-bottom: 40px; max-width: 600px; }
+        
+        .hero-stats {
+            display: flex; gap: 50px; margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border);
+        }
+        .h-stat strong { font-size: 32px; display: block; color: white; }
+        .h-stat span { font-size: 14px; color: var(--text-gray); text-transform: uppercase; }
+
+        /* --- 4. ABOUT (STORY) --- */
+        .section { padding: 120px 0; border-bottom: 1px solid var(--border); }
+        .section-header { margin-bottom: 80px; }
+        .section-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; display: block; margin-bottom: 20px; }
+        .section-header h2 { font-size: 48px; }
+
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-text p { margin-bottom: 20px; color: var(--text-gray); font-size: 18px; }
+        .about-img {
+            position: relative; border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .about-img img { width: 100%; display: block; }
+        
+        /* --- 5. SERVICES (CARDS) --- */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .srv-card {
+            background: var(--surface); padding: 40px; border-radius: 16px; border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .srv-card:hover { transform: translateY(-10px); background: var(--surface-hover); border-color: var(--primary); }
+        .srv-icon { font-size: 40px; color: var(--primary); margin-bottom: 30px; }
+        .srv-card h3 { font-size: 24px; margin-bottom: 15px; }
+        .srv-card ul { list-style: none; color: var(--text-gray); margin-top: 20px; }
+        .srv-card li { margin-bottom: 10px; font-size: 14px; }
+        .srv-card li i { color: var(--primary); margin-right: 10px; }
+
+        /* --- 6. PROJECTS (ZIG-ZAG) --- */
+        .project-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 100px; align-items: center; }
+        .project-row.reverse { direction: rtl; } /* Меняет порядок для зигзага */
+        .project-row.reverse .project-info { direction: ltr; } /* Возвращает текст в норму */
+        
+        .project-preview {
+            height: 400px; background: #222; border-radius: 20px; overflow: hidden; border: 1px solid var(--border);
+            position: relative;
+        }
+        .project-preview img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .project-preview:hover img { transform: scale(1.05); }
+        
+        .project-info h3 { font-size: 36px; margin-bottom: 20px; }
+        .project-info p { color: var(--text-gray); margin-bottom: 30px; font-size: 16px; }
+        .tech-tags { display: flex; gap: 10px; margin-bottom: 30px; }
+        .tag { padding: 6px 14px; background: rgba(255,255,255,0.05); border-radius: 50px; font-size: 12px; font-weight: 600; }
+
+        /* --- 7. TECH STACK --- */
+        .stack-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+        .stack-item {
+            background: var(--surface); padding: 20px; border-radius: 12px; text-align: center;
+            border: 1px solid var(--border); transition: 0.3s;
+        }
+        .stack-item:hover { border-color: var(--primary); background: rgba(76, 201, 240, 0.1); }
+        .stack-item i { font-size: 30px; color: white; margin-bottom: 10px; display: block; }
+        .stack-item span { font-size: 12px; color: var(--text-gray); font-weight: 600; }
+
+        /* --- 8. PRICING --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .price-card {
+            background: var(--surface); padding: 50px 30px; border-radius: 20px; text-align: center; border: 1px solid var(--border);
+            position: relative; overflow: hidden;
+        }
+        .price-card.featured { border-color: var(--primary); background: rgba(76, 201, 240, 0.05); }
+        .price-card.featured::before { content:'POPULAR'; position: absolute; top: 20px; right: -30px; background: var(--primary); color: black; padding: 5px 40px; transform: rotate(45deg); font-size: 10px; font-weight: 800; }
+        
+        .price { font-size: 48px; font-weight: 800; margin: 20px 0; color: white; }
+        .price span { font-size: 16px; color: var(--text-gray); font-weight: 500; }
+        .price-features { margin: 30px 0; text-align: left; }
+        .price-features li { margin-bottom: 15px; color: var(--text-gray); }
+        .price-features i { color: var(--primary); margin-right: 10px; }
+
+        /* --- 9. BLOG --- */
+        /* --- 9. BLOG (UPGRADED) --- */
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+.blog-card { 
+    background: var(--surface); 
+    border-radius: 20px; 
+    overflow: hidden; 
+    border: 1px solid var(--border); 
+    transition: all 0.4s ease; 
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Эффект свечения и подъема при наведении */
+.blog-card:hover { 
+    transform: translateY(-10px); 
+    border-color: var(--primary); 
+    box-shadow: 0 20px 40px rgba(76, 201, 240, 0.15); 
+}
+
+.blog-img { 
+    height: 240px; 
+    overflow: hidden; 
+    position: relative;
+}
+
+.blog-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Кинематографичный зум */
+}
+
+/* При наведении картинка приближается */
+.blog-card:hover .blog-img img { 
+    transform: scale(1.1); 
+}
+
+.blog-content { 
+    padding: 30px; 
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.blog-tag {
+    background: rgba(255,255,255,0.05);
+    padding: 4px 10px;
+    border-radius: 50px;
+    color: var(--text-gray);
+    font-weight: 600;
+}
+
+.blog-date { color: var(--primary); font-weight: 700; }
+
+.blog-card h3 { 
+    font-size: 20px; 
+    margin-bottom: 15px; 
+    line-height: 1.4;
+}
+
+.blog-link { 
+    color: white; 
+    font-weight: 600;
+    font-size: 14px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto; /* Прижимает кнопку к низу */
+    transition: 0.3s;
+}
+
+.blog-card:hover .blog-link { color: var(--primary); }
+
+        /* --- 10. CONTACT --- */
+        .contact-box {
+            background: var(--surface); padding: 80px; border-radius: 30px; border: 1px solid var(--border);
+            text-align: center; max-width: 800px; margin: 0 auto;
+        }
+        .contact-form { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        .input-field {
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 20px; border-radius: 8px;
+            color: white; font-family: inherit;
+        }
+        .input-field:focus { border-color: var(--primary); outline: none; }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 0 40px; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; }
+        .socials a { width: 40px; height: 40px; border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; color: white; transition: 0.3s; }
+        .socials a:hover { background: var(--primary); color: black; border-color: var(--primary); }
+
+        @media (max-width: 1024px) {
+            .services-grid, .pricing-grid, .blog-grid, .project-row { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .stack-grid { grid-template-columns: repeat(3, 1fr); }
+            .hero-content h1 { font-size: 42px; }
+            .nav-menu { display: none; }
+            .project-row.reverse { direction: ltr; }
+            .contact-form { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo"><i class="fas fa-cube"></i> HASAN GROUP</a>
+            <nav class="nav-menu">
+                <a href="#about" class="nav-link">Обо мне</a>
+                <a href="#services" class="nav-link">Услуги</a>
+                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#pricing" class="nav-link">Цены</a>
+                <a href="#blog" class="nav-link">Блог</a>
+            </nav>
+            <a href="#contact" class="btn btn-primary">Начать проект</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1>Архитектура<br>Вашего <span>Цифрового</span><br>Будущего</h1>
+                <p>
+                    Hasan Group — это слияние веб-технологий, инженерного подхода и философии Кайдзен. 
+                    Мы создаем сайты, софт и дизайн-системы из Истаравшана для всего мира.
+                </p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <a href="#projects" class="btn btn-primary">Смотреть проекты <i class="fas fa-arrow-right"></i></a>
+                    <a href="#about" class="btn btn-outline">Читать историю</a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="h-stat"><strong>3+</strong><span>Года опыта</span></div>
+                    <div class="h-stat"><strong>24/7</strong><span>Поддержка</span></div>
+                    <div class="h-stat"><strong>100%</strong><span>Качество</span></div>
+                    <div class="h-stat"><strong>5+</strong><span>Кейсов</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ОСНОВАТЕЛЬ</span>
+                <h2>Кто стоит за кодом?</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text" data-aos="fade-right">
+                    <p>
+                        Привет! Я Хасан. Студент первого курса ТГУ (Худжанд), специальность "Веб-дизайн и компьютерная графика".
+                        Моя база — город Истаравшан.
+                    </p>
+                    <p>
+                        Моя философия проста: <strong>"Дисциплина бьет класс"</strong>. Я не верю в быстрое везение. 
+                        Я верю в ежедневный труд, чистый код и архитектурную точность.
+                    </p>
+                    <p>
+                        Помимо веба, я изучаю физику, архитектуру и пишу "Анти-книгу" для мотивации молодежи. 
+                        В 2025 году я запускаю проект <strong>Digital Tajikistan</strong> с поддержкой Google AI.
+                    </p>
+                    <a href="Резюме - Хасан (Hasan Group).pdf" class="btn btn-outline" style="margin-top: 20px;">Скачать Резюме (PDF)</a>
+                </div>
+                <div class="about-img" data-aos="fade-left">
+    <img src="me.png" alt="Hasan Profile" style="width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);">
+</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <span class="section-tag">ЭКОСИСТЕМА УСЛУГ</span>
+                <h2>Что я могу предложить</h2>
+            </div>
+            <div class="services-grid">
+                <div class="srv-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-code srv-icon"></i>
+                    <h3>Web Development</h3>
+                    <p>Полный цикл создания сайтов. От прототипа до хостинга.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Корпоративные сайты</li>
+                        <li><i class="fas fa-check"></i> Landing Page</li>
+                        <li><i class="fas fa-check"></i> GitHub Pages</li>
+                    </ul>
+                </div>
+                <div class="srv-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-cube srv-icon"></i>
+                    <h3>Arch & 3D</h3>
+                    <p>Визуализация объектов и архитектурных форм.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 3D Моделирование</li>
+                        <li><i class="fas fa-check"></i> Рендеринг сцен</li>
+                        <li><i class="fas fa-check"></i> Инженерные чертежи</li>
+                    </ul>
+                </div>
+                <div class="srv-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-robot srv-icon"></i>
+                    <h3>Python & Soft</h3>
+                    <p>Автоматизация рутины и создание инструментов.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Telegram Боты</li>
+                        <li><i class="fas fa-check"></i> Парсинг данных (JSON)</li>
+                        <li><i class="fas fa-check"></i> Visual Basic Apps</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="section" style="padding: 80px 0; background: #0f1014;">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+                <span class="section-tag">ИНСТРУМЕНТАРИЙ</span>
+                <h2>Мой Технический Арсенал</h2>
+                <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto;">
+                    Я не ограничиваюсь вебом. Мой стек позволяет решать задачи в архитектуре, 
+                    разработке десктопного софта и автоматизации.
+                </p>
+            </div>
+            
+            <div class="stack-grid" data-aos="fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+                
+                <div class="stack-item">
+                    <i class="fab fa-html5" style="color: #e34c26;"></i>
+                    <span>HTML5 / CSS3</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Frontend Base</small>
+                </div>
+                <div class="stack-item">
+                    <i class="fab fa-js" style="color: #f0db4f;"></i>
+                    <span>JavaScript</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Interactivity</small>
+                </div>
+
+                <div class="stack-item" style="border-color: rgba(255, 212, 59, 0.2);">
+                    <i class="fab fa-python" style="color: #ffd43b;"></i>
+                    <span>Python</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Automation & AI</small>
+                </div>
+                
+                <div class="stack-item">
+                    <i class="fab fa-windows" style="color: #00a4ef;"></i>
+                    <span>Visual Basic</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Desktop Apps</small>
+                </div>
+
+                <div class="stack-item">
+                    <i class="fas fa-cube" style="color: #ff9f1c;"></i>
+                    <span>Blender 3D</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Modeling</small>
+                </div>
+
+                <div class="stack-item">
+                    <i class="fab fa-figma" style="color: #f24e1e;"></i>
+                    <span>Figma</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">UI/UX Design</small>
+                </div>
+
+                <div class="stack-item">
+                    <i class="fas fa-database" style="color: #fff;"></i>
+                    <span>JSON / Data</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Parsing</small>
+                </div>
+
+                <div class="stack-item">
+                    <i class="fab fa-github" style="color: #fff;"></i>
+                    <span>Git / GitHub</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Version Control</small>
+                </div>
+
+                <div class="stack-item">
+                    <i class="fas fa-user-secret" style="color: #10b981;"></i>
+                    <span>CyberSec</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Basic Audit</small>
+                </div>
+
+                <div class="stack-item">
+                    <i class="fab fa-linux" style="color: #fff;"></i>
+                    <span>Linux / Kali</span>
+                    <small style="display:block; font-size:10px; color:#555; margin-top:5px;">Environment</small>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ПОРТФОЛИО</span>
+                <h2>Избранные Кейсы</h2>
+            </div>
+            
+            <div class="project-row" data-aos="fade-up">
+                <div class="project-preview">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800" alt="NGO">
+                </div>
+                <div class="project-info">
+                    <div class="tech-tags">
+                        <span class="tag">WEB DEV</span>
+                        <span class="tag">DESIGN</span>
+                    </div>
+                    <h3>ОО «Чашмаи Хаёт»</h3>
+                    <p>
+                        Крупный проект для НПО. Разработана структура сайта, внедрена форма обратной связи, 
+                        создана галерея проектов. Сайт помог организации подать заявку на международные гранты.
+                    </p>
+                    <div class="btn btn-outline" style="cursor: default; opacity: 0.6; border-style: dashed;">
+                    <i class="fas fa-clock"></i> Скоро / In Progress
+                </div>
+            </div>
+
+            <div class="project-row reverse" data-aos="fade-up">
+                <div class="project-preview">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800" alt="Python">
+                </div>
+                <div class="project-info">
+                    <div class="tech-tags">
+                        <span class="tag">PYTHON</span>
+                        <span class="tag">SECURITY</span>
+                    </div>
+                    <h3>Security Scripts Pack</h3>
+                    <p>
+                        Набор авторских инструментов для автоматизации проверки безопасности (Bug Bounty) 
+                        и работы с данными. Включает конвертер медицинских статей в JSON.
+                    </p>
+                    <div class="btn btn-outline" style="cursor: default; opacity: 0.6; border-style: dashed;">
+                    <i class="fas fa-clock"></i> Скоро / In Progress
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-row" data-aos="fade-up">
+                <div class="project-preview">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="AI">
+                </div>
+                <div class="project-info">
+                    <div class="tech-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">STARTUP</span>
+                    </div>
+                    <h3>Digital Tajikistan</h3>
+                    <p>
+                        Концепция образовательной платформы на базе ИИ. 
+                        Проект разрабатывается для конкурса «Илм фуруги марифат» и гранта Google AI Futures Fund.
+                    </p>
+                    <div class="btn btn-outline" style="cursor: default; opacity: 0.6; border-style: dashed;">
+                    <i class="fas fa-clock"></i> Скоро / In Progress
+                    </div>
+                </div>
+            </div>
+<div class="project-row reverse" data-aos="fade-up">
+    
+    <div class="project-preview" style="position: relative; background: #000;">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" 
+             style="width: 100%; height: 100%; object-fit: cover; filter: blur(15px) brightness(0.4);">
+        
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                    border: 1px solid rgba(255,255,255,0.2); padding: 15px 30px; 
+                    border-radius: 50px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);">
+            <span style="color: var(--primary); font-weight: 800; letter-spacing: 3px; font-size: 16px;">COMING SOON</span>
+        </div>
+    </div>
+
+    <div class="project-info">
+        <div class="tech-tags">
+            <span class="tag" style="background: rgba(255,255,255,0.1);">CONFIDENTIAL</span>
+            <span class="tag" style="background: rgba(255,255,255,0.1);">STARTUP</span>
+        </div>
+        <h3 style="color: var(--text-gray);">Секретный Проект</h3>
+        <p>
+            Мы готовим что-то масштабное для рынка Таджикистана. 
+            Новая платформа, которая объединит архитектуру и искусственный интеллект. 
+            Релиз запланирован на 2026 год.
+        </p>
+        <span style="color: var(--primary); font-size: 14px; font-weight: 600;">
+            <i class="fas fa-hourglass-half"></i> Анонс через 2 месяца
+        </span>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section" style="background: #0f1014;">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <span class="section-tag">СТОИМОСТЬ</span>
+                <h2>Пакеты Услуг</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card" data-aos="zoom-in">
+                    <h3>Landing Page</h3>
+                    <div class="price">150$ <span>/ проект</span></div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Одностраничный сайт</li>
+                        <li><i class="fas fa-check"></i> Адаптив под мобильные</li>
+                        <li><i class="fas fa-check"></i> Хостинг GitHub</li>
+                        <li><i class="fas fa-check"></i> 5 дней разработки</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; justify-content: center;">Выбрать</a>
+                </div>
+                <div class="price-card featured" data-aos="zoom-in" data-aos-delay="100">
+                    <h3>Corporate</h3>
+                    <div class="price">400$ <span>/ проект</span></div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Многостраничный сайт</li>
+                        <li><i class="fas fa-check"></i> Формы и Интеграции</li>
+                        <li><i class="fas fa-check"></i> SEO Оптимизация</li>
+                        <li><i class="fas fa-check"></i> 2 недели поддержки</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center;">Выбрать</a>
+                </div>
+                <div class="price-card" data-aos="zoom-in" data-aos-delay="200">
+                    <h3>Custom / Soft</h3>
+                    <div class="price">Discuss <span>/ договорная</span></div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Скрипты Python / VB</li>
+                        <li><i class="fas fa-check"></i> 3D Моделирование</li>
+                        <li><i class="fas fa-check"></i> Сложные системы</li>
+                        <li><i class="fas fa-check"></i> Индивидуальный план</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; justify-content: center;">Обсудить</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">БАЗА ЗНАНИЙ</span>
+                <h2>Реальные Кейсы</h2>
+            </div>
+            <div class="blog-grid">
+                
+                <div class="blog-card" data-aos="fade-up">
+                    <div class="blog-img">
+                        <img src="image_249b9c.jpg" alt="NGO Case">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">DEC 10, 2025</span>
+                            <span class="blog-tag">#WEB_DEV</span>
+                        </div>
+                        <h3>Цифровизация НПО: Как сайт помог выиграть международный грант</h3>
+                        <a href="#" class="blog-link">Читать разбор <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-img">
+                        <img src="image_26e8dc.jpg" alt="Security Audit">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">DEC 05, 2025</span>
+                            <span class="blog-tag">#SECURITY</span>
+                        </div>
+                        <h3>Bug Bounty и Аудит: Почему безопасность сайта важнее дизайна</h3>
+                        <a href="#" class="blog-link">Читать статью <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-img">
+                        <img src="image_24fd77.jpg" alt="Python Code">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">NOV 28, 2025</span>
+                            <span class="blog-tag">#AUTOMATION</span>
+                        </div>
+                        <h3>Python для Архитектора: Автоматизация рутины и парсинг данных</h3>
+                        <a href="#" class="blog-link">Смотреть код <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-box" data-aos="zoom-in">
+                <h2>Готовы начать?</h2>
+                <p style="color: var(--text-gray); margin-bottom: 40px;">
+                    Опишите вашу задачу, и я предложу лучшее техническое решение.
+                </p>
+                
+                <form action="https://formspree.io/f/mwpgrvdy" method="POST" class="contact-form">
+                    <input type="text" name="name" class="input-field" placeholder="Ваше Имя" required>
+                    <input type="email" name="email" class="input-field" placeholder="Ваш Email" required>
+                    <textarea name="message" class="input-field full-width" rows="5" placeholder="Опишите проект..." required></textarea>
+                    <button type="submit" class="btn btn-primary full-width" style="justify-content: center; padding: 15px;">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo" style="margin-bottom: 20px;">HASAN GROUP</div>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;">
+                        Создаем цифровые продукты с душой и инженерной точностью.
+                    </p>
+                    <div class="socials">
+                        <a href="https://www.instagram.com/abdulloev.2oo7_/?__pwa=1#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/Abdulloevhasan"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/992023192727"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul class="footer-links" style="list-style: none; margin-top: 20px; color: var(--text-gray);">
+                        <li style="margin-bottom: 10px;"><a href="#about" style="color: inherit;">Обо мне</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#services" style="color: inherit;">Услуги</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#projects" style="color: inherit;">Портфолио</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#blog" style="color: inherit;">Блог</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul style="list-style: none; margin-top: 20px; color: var(--text-gray);">
+                        <li style="margin-bottom: 15px;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Истаравшан / Худжанд</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-phone" style="color: var(--primary);"></i> +992 02 319 27 27</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-envelope" style="color: var(--primary);"></i> abdulloevhasan965@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); color: #555; font-size: 12px;">
+                © 2025 Hasan Group. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
